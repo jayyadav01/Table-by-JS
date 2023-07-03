@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p
+        {
+            display: inline-block;
+            margin-top: 30px;
+        }
+        #tab
+        {
+            display: none;
+            margin-top: 20px;
+        }
+        th , th, td
+        {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Enter name">
+    <input type="text" id="age" placeholder="Enter age">
+    <button id="add">Add</button>
+    <button id="table">Print in Table</button>
+
+    <div id="parent">
+
+    </div>
+
+    <table id="tab">
+        <tr>
+            <th>Sno</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>    
+    </table>
+
+    <script>
+        let names = document.querySelector('#name');
+        let age = document.querySelector('#age');
+        let add = document.querySelector('#add');
+        let table = document.querySelector('#table');
+
+        names.focus();  
+
+        add.onclick = () =>
+        {
+            var namebox = document.createElement('p');
+            var agebox = document.createElement('p');
+
+            namebox.style.border = '2px solid black';
+            namebox.style.padding = '10px';
+            namebox.style.marginLeft = '20px';
+            namebox.style.marginRight = '20px';
+            agebox.style.border = '2px solid black';
+            agebox.style.padding = '10px';
+
+            if(names.value.length && age.value.length>0)
+            {
+                namebox.innerHTML = names.value; 
+                document.getElementById('parent').append(namebox);
+
+                agebox.innerHTML = age.value;
+                document.getElementById('parent').append(agebox);
+
+                let br = document.createElement('br');
+                document.querySelector('#parent').appendChild(br);
+
+                names.focus();            
+                names.value = '';
+                age.value = '';
+            }
+        }
+
+        let num = 1;
+        table.onclick = () =>
+        {
+            document.querySelector('#parent').style.display = 'none'
+            document.querySelector('#tab').style.display = 'block'
+
+            let data = document.querySelectorAll('p');
+            for(let i=0; i<data.length; i++)
+            {
+                let srdata = document.createElement('td');
+                let namedata = document.createElement('td');
+                let agedata = document.createElement('td');
+
+                namedata.innerHTML = data[i].innerHTML;
+                
+                i += 1;
+                agedata.innerHTML = data[i].innerHTML;
+                
+                srdata.innerHTML = num;
+
+                for(let j = 0; j < 3; j++)
+                {
+                    let rowdata = document.createElement('tr');
+                    rowdata.append(srdata);
+                    rowdata.append(namedata);
+                    rowdata.append(agedata);
+
+                    document.querySelector('#tab').append(rowdata);
+                }
+                num += 1;
+            }
+        }
+    </script>
+</body>
+</html>
